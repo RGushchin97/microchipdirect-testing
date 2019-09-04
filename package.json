@@ -1,0 +1,45 @@
+{
+  "name": "microchipdirect-testing",
+  "version": "1.0.0",
+  "description": "Project for testing microchipdirect.com",
+  "main": "",
+  "scripts": {
+    "cucumber": "node node_modules/cucumber/bin/cucumber-js -f \"json:./results/automated scripts/report.cucumber\" --require src/test/steps",
+    "cucumber-parallel": "node node_modules/cucumber/bin/cucumber-js -f \"json:./results/automated scripts/report.cucumber\" --require src/test/steps --parallel 6",
+    "install:pre": "echo 'Installing node_modules for tests ... 🤞'",
+    "install:post": "echo 'Installed node_modules for tests! 👍'",
+    "install:clean": "npm run install:pre && npm install && npm run install:post",
+    "lint": "node node_modules/eslint/bin/eslint . --max-warnings=0",
+    "lint:fix": "node node_modules/eslint/bin/eslint . --fix",
+    "test:all": "npm run test:pre && if not exist \"results\\automated scripts\", mkdir \"results\\automated scripts\" && npm run tests:run && npm run test:post",
+    "test:all-ubuntu": "npm run test:pre && mkdir -p \"results/automated scripts\" && npm run tests:run && npm run test:post",
+    "tests:run": "npm run cucumber src/test || (exit 0)",
+    "test:all-ci": "mkdir -p 'results/automated scripts' && npm run cucumber tests",
+    "test:all-ci-windows-parallel": "if not exist \"results\\automated scripts\", mkdir \"results\\automated scripts\" && npm run cucumber-parallel tests",
+    "test:all-ci-windows": "if not exist \"results\\automated scripts\", mkdir \"results\\automated scripts\" && npm run cucumber tests",
+    "test:pre": "webdriver-manager update && webdriver-manager start --detach",
+    "test:post": "webdriver-manager shutdown &&  npm run test:tryKillDriver",
+    "test:tryKillDriver": "tskill webdriver-manager || (exit 0)"
+  },
+  "author": "r.gushchin",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "cucumber": "^5.1.0",
+    "imap-simple": "^4.3.0",
+    "interval-promise": "^1.3.0",
+    "json2csv": "^4.5.2",
+    "moment": "^2.24.0",
+    "selenium-webdriver": "^4.0.0-alpha.4",
+    "sprintf-js": "^1.1.2",
+    "stack-trace": "0.0.10",
+    "uuid": "^3.3.3",
+    "webdriver-manager": "^12.1.6"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}
