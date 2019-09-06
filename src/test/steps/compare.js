@@ -51,7 +51,7 @@ Then(/^All items are shown$/, async () => {
   const compareListPage = new CompareListPage();
   // TODO: check list before and after
 });
-Then(/^Button Compare is available$/, function () {
+Then(/^Button Compare is available$/, async () => {
   const compareListPage = new CompareListPage();
-  compareListPage.waitForButtonCompareIsAvailable();
+  await compareListPage.waitForButtonCompareIsAvailable();
 });
