@@ -2,17 +2,16 @@ Feature: Compare
 
   @ui
   Scenario: Comparing shows results
-    When I select 'Ultrasound Products' from 'Analog' card footer
+#    When I select 'Ultrasound Products' from 'Analog' card footer
+    When I select 'Analog' card
       And I select 'Depletion - Mode N-Channel' from 'High Voltage Interface' table card
-#      And I select first item with cost '$0.27' from results table
-#      And I remember item name as 'first item'
-#      And I select first item with cost '$0.37' from results table
-#      And I remember item name as 'second item'
-#      And I click 'Compare'
-#    Then Only '2' items are in table
-#      And Name of item '1' equals 'first item'
-#      And Name of item '2' equals 'second item'
-#    When I click 'Show Full List'
-#    Then All items are shown
-#      And Button 'Compare' is available
+      And I select '1' item with cost '$0.27' from results table remembering item name as 'item 1'
+      And I select '1' item with cost '$0.37' from results table remembering item name as 'item 2'
+      And I click button Compare
+    Then Only '2' items are in table
+      And item 'item 1' is in table
+      And item 'item 2' is in table
+    When I click button Show Full List
+      Then All items are shown
+      And Button Compare is available
 
