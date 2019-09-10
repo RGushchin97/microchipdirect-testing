@@ -50,9 +50,8 @@ When(/^I click button Show Full List$/, async () => {
   await compareListPage.clickShowFullList();
 });
 Then(/^List of items names '(.*)' is shown$/, async (key) => {
-  const elements = await browser.driver.findElements(By.xpath('//tr[contains(@id, "New1_r")]//a[@class = "Controls"]'));
-  const txtPromises = elements.map(async (el) => el.getText());
-  const actualList = await Promise.all(txtPromises).then((result) => result);
+  const compareListPage = new CompareListPage();
+  const actualList = await compareListPage.getNamesList();
   assert.deepEqual(actualList, this[key], `List of items names ${key} is not shown`);
 });
 Then(/^Button Compare is available$/, async () => {
@@ -60,8 +59,7 @@ Then(/^Button Compare is available$/, async () => {
   await compareListPage.waitForButtonCompareIsAvailable();
 });
 When(/^I remember items names list as '(.*)'$/, async (key) => {
-  const elements = await browser.driver.findElements(By.xpath('//tr[contains(@id, "New1_r")]//a[@class = "Controls"]'));
-  const txtPromises = elements.map(async (el) => el.getText());
-  this[key] = await Promise.all(txtPromises).then((result) => result);
+  const compareListPage = new CompareListPage();
+  this[key] = await compareListPage.getNamesList();
   log(`Items names list [${this[key]}] is remembered as '${key}'`);
 });

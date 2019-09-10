@@ -6,6 +6,7 @@ const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
 const { transformSelectors } = require('../../../framework/helpers/transformers');
 const ElementState = require('../../../framework/elements/elementState');
+const { getAttributes } = require('../../customElements/listGroupTable');
 
 class CompareListPage {
   constructor() {
@@ -51,6 +52,11 @@ class CompareListPage {
   async waitForButtonCompareIsAvailable() {
     const buttonCompareSelector = this.selectors['Button Compare'];
     await waitAndAssertState(buttonCompareSelector, ElementState.ENABLED);
+  }
+
+  async getNamesList() {
+    const selector = fromPattern(this.selectors['Item Name'], '/');
+    return getAttributes(selector);
   }
 }
 
