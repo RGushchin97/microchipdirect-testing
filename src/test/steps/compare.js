@@ -1,10 +1,12 @@
 const { assert } = require('chai');
 const { When } = require('cucumber');
 const { Then } = require('cucumber');
+const { By } = require('selenium-webdriver');
 const { HomePage } = require('../../project/pageObjects/home.po');
 const log = require('../../framework/logger');
 const { CompareListPage } = require('../../project/pageObjects/compare-list.po');
 const { CategoryTablePage } = require('../../project/pageObjects/category-table.po');
+const browser = require('../../framework/browser');
 
 When(/^I select '(.*)' from '(.*)' card footer$/, async (category, card) => {
   const homePage = new HomePage();
@@ -38,7 +40,7 @@ Then(/^Only '(.*)' items are in table$/, async (count) => {
   const comparisonsCount = await compareListPage.getComparisonsCount();
   assert.equal(count, comparisonsCount, `Comparisons table does not contain ${count} items`);
 });
-Then(/^item '(.*)' is in table$/, async (key) => {
+Then(/^Item '(.*)' is in table$/, async (key) => {
   const compareListPage = new CompareListPage();
   const itemName = this[key];
   await compareListPage.waitForTableItemIsDisplayed(itemName);
@@ -47,11 +49,19 @@ When(/^I click button Show Full List$/, async () => {
   const compareListPage = new CompareListPage();
   await compareListPage.clickShowFullList();
 });
-Then(/^All items are shown$/, async () => {
-  const compareListPage = new CompareListPage();
-  // TODO: check list before and after
+Then(/^List of items names '(.*)' is shown$/, async (key) => {
+  const elements = await browser.driver.findElements(By.xpath('//tr[contains(@id, "New1_r")]//a[@class = "Controls"]'));
+  const txtPromises = elements.map(async (el) => el.getText());
+  const actualList = await Promise.all(txtPromises).then((result) => result);
+  assert.deepEqual(actualList, this[key], `List of items names ${key} is not shown`);
 });
 Then(/^Button Compare is available$/, async () => {
   const compareListPage = new CompareListPage();
   await compareListPage.waitForButtonCompareIsAvailable();
+});
+When(/^I remember items names list as '(.*)'$/, async (key) => {
+  const elements = await browser.driver.findElements(By.xpath('//tr[contains(@id, "New1_r")]//a[@class = "Controls"]'));
+  const txtPromises = elements.map(async (el) => el.getText());
+  this[key] = await Promise.all(txtPromises).then((result) => result);
+  log(`Items names list [${this[key]}] is remembered as '${key}'`);
 });
