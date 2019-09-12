@@ -47,6 +47,25 @@ class ComparisonItem {
   unselect() {
     return this.chbxSelect.setCheckboxState(STATE_UNCHECKED);
   }
+
+  /**
+   * get true or false if item is displayed or no
+   * @returns {Promise<boolean>} result is element displayed
+   */
+  isDisplayed() {
+    return this.lblItem.isPresent();
+  }
+
+  /**
+   * get true or false if item name is displayed
+   * @param {string} itemName name
+   * @returns {Promise<boolean>} result is name displayed
+   */
+  static isNameDisplayed(itemName) {
+    const nameLocator = sprintf('//a[@class="Controls" and text() = "%1$s"]', itemName);
+    const lblName = new Label(By.xpath(nameLocator), 'Comparison Item Name');
+    return lblName.isPresent();
+  }
 }
 
 module.exports = {

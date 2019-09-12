@@ -1,12 +1,7 @@
 const selectors = require('./constants');
 const { BaseElement } = require('../../../framework/elements');
 const { ComparisonItem } = require('../../customElements/comparison-item');
-const { transformSelectors } = require('../../../framework/helpers/transformers');
 const { BasePage } = require('../../../framework/base-page');
-const { isEnabled } = require('../../../framework/elements/baseElement');
-const { getText } = require('../../../framework/elements/baseElement');
-const { fromPattern } = require('../../../framework/helpers/transformers');
-const { isPresent } = require('../../../framework/elements/baseElement');
 const { getAttributes } = require('../../customElements/listGroupTable');
 
 /**
@@ -57,8 +52,7 @@ class CompareListPage extends BasePage {
    * @returns {Promise<void>} result
    */
   isItemDisplayed(itemName) {
-    const itemSelector = fromPattern(this.selectors['Comparison Item'], this.selectors['Comparison Row'].selector, itemName);
-    return isPresent(itemSelector);
+    return ComparisonItem.isNameDisplayed(itemName);
   }
 
   /**

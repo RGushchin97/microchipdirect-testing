@@ -6,8 +6,5 @@ module.exports = {
   comparisonRowLocator: By.xpath('//tr[contains(@id, "ComparisonChartNew1_r")]'),
   Compare: new Button(By.xpath('//a[contains(@id, "Compare1")]'), 'Button Compare'),
   'Show Full List': new Button(By.xpath('//a[contains(@id, "Compare1")]'), 'Button Show Full List'),
-  'Comparison Item': {
-    selector: '%1$s/td/a[text() = "%2$s"]',
-    type: 'xpath',
-  },
+  comparisonItemLocatorTemplate: '//a[text() = "%2$s"]',
 };

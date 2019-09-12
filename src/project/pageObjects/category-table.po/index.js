@@ -1,8 +1,5 @@
-const { By } = require('selenium-webdriver');
-const { sprintf } = require('sprintf-js');
 const { BasePage } = require('../../../framework/base-page');
 const elements = require('./constants');
-const { Label } = require('../../../framework/elements/label');
 /**
  * Page object class for working with categories table page
  */

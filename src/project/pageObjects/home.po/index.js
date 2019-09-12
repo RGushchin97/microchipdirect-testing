@@ -1,7 +1,5 @@
 const { BasePage } = require('../../../framework/base-page');
 const elements = require('./constants');
-const { click, scrollToElement, hover } = require('../../../framework/elements/baseElement');
-const { fromPattern } = require('../../../framework/helpers/transformers');
 
 /**
  * Page object class for working with home page
