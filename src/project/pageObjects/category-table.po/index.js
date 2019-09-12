@@ -1,10 +1,8 @@
+const { By } = require('selenium-webdriver');
+const { sprintf } = require('sprintf-js');
 const { BasePage } = require('../../../framework/base-page');
-const { selectors } = require('./constants');
-const { getNumberForOption } = require('./constants');
-const { getNumbersForTable } = require('./constants');
-const { click } = require('../../../framework/elements/baseElement');
-const { fromPattern } = require('../../../framework/helpers/transformers');
-
+const elements = require('./constants');
+const { Label } = require('../../../framework/elements/label');
 /**
  * Page object class for working with categories table page
  */
@@ -14,7 +12,7 @@ class CategoryTablePage extends BasePage {
    * @constructor
    */
   constructor() {
-    super(selectors);
+    super(elements);
   }
 
   /**
@@ -24,11 +22,7 @@ class CategoryTablePage extends BasePage {
    * @returns {Promise<void>} result clicking on option
    */
   async selectOption(option, table) {
-    const tableNumbers = getNumbersForTable(table);
-    const [column, number] = tableNumbers;
-    const tableSelector = fromPattern(this.selectors.Table, column, number);
-    const optionSelector = fromPattern(this.selectors.Option, tableSelector.selector, getNumberForOption(option));
-    await click(optionSelector);
+    await this.elements[table][option].click();
   }
 }
 

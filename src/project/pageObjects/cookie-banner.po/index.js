@@ -1,12 +1,10 @@
-const { transformSelectors } = require('../../../framework/helpers/transformers');
-const selectors = transformSelectors(require('./constants'));
-const { click } = require('../../../framework/elements');
+const elements = require('./constants');
 
 /**
  * Accept Cookie banner
  */
 async function accept() {
-  await click(selectors['Cookie Banner Accept']);
+  await elements.cookieBannerAccept.click();
 }
 
 module.exports = {

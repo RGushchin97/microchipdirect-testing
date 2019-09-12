@@ -1,6 +1,6 @@
 module.exports = {
   Item: {
-    selector: '(//table[contains(@class, "striped")]//tr[contains(., "%1$s")])[%2$s]',
+    selector: '(//tr[contains(., "%1$s")])[%2$s]',
     type: 'xpath',
   },
   'Item Checkbox': {

@@ -1,10 +1,6 @@
-const selectors = {
-  'Cookie Banner Accept': {
-    selector: '#cookie-banner button',
-    type: 'css',
-  },
-};
+const { By } = require('selenium-webdriver');
+const { Button } = require('../../../framework/elements/button');
 
 module.exports = {
-  ...selectors,
+  cookieBannerAccept: new Button(By.css('#cookie-banner button'), 'Cookie Banner Accept'),
 };

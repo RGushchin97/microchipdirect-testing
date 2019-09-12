@@ -1,4 +1,5 @@
 const selectors = require('./constants');
+const { transformSelectors } = require('../../../framework/helpers/transformers');
 const { BasePage } = require('../../../framework/base-page');
 const { STATE_CHECKED } = require('../../../framework/elements/checkBox');
 const { isEnabled } = require('../../../framework/elements/baseElement');
@@ -97,7 +98,7 @@ class CompareListPage extends BasePage {
    * @returns {Promise<Object[]|*>} result
    */
   async getNamesList() {
-    const selector = fromPattern(this.selectors['Item Name'], '/');
+    const selector = fromPattern(transformSelectors(selectors)['Item Name'], '/');
     return getAttributes(selector);
   }
 }
