@@ -1,19 +1,20 @@
 const selectors = require('./constants');
 const { getText, isPresent, waitAndAssertState } = require('../../../framework/elements');
 const ElementState = require('../../../framework/elements');
+const { BasePage } = require('../../../framework/base-page');
 const { hasRows } = require('../../customElements/listGroupTable');
-const { transformSelectors, fromPattern } = require('../../../framework/helpers/transformers');
+const { fromPattern } = require('../../../framework/helpers/transformers');
 
 /**
  * Page object class for working with programming cost item page
  */
-class ProgrammingCostItemPage {
+class ProgrammingCostItemPage extends BasePage {
   /**
    * represents programming cost item page
    * @constructor
    */
   constructor() {
-    this.selectors = transformSelectors(selectors);
+    super(selectors);
   }
 
   /**

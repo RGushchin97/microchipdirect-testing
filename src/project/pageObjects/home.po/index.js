@@ -1,19 +1,20 @@
+const { BasePage } = require('../../../framework/base-page');
 const { getCategoryNumber } = require('./constants');
 const { getCardNumber } = require('./constants');
 const { selectors } = require('./constants');
 const { click, scrollToElement, hover } = require('../../../framework/elements/baseElement');
-const { fromPattern, transformSelectors } = require('../../../framework/helpers/transformers');
+const { fromPattern } = require('../../../framework/helpers/transformers');
 
 /**
  * Page object class for working with home page
  */
-class HomePage {
+class HomePage extends BasePage {
   /**
    * represents home page
    * @constructor
    */
   constructor() {
-    this.selectors = transformSelectors(selectors);
+    super(selectors);
   }
 
   /**

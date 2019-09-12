@@ -1,4 +1,5 @@
 const selectors = require('./constants');
+const { BasePage } = require('../../../framework/base-page');
 const { STATE_CHECKED } = require('../../../framework/elements/checkBox');
 const { isEnabled } = require('../../../framework/elements/baseElement');
 const { setCheckboxState } = require('../../../framework/elements/checkBox');
@@ -6,20 +7,19 @@ const { getElementsCount } = require('../../../framework/elements/baseElement');
 const { getText } = require('../../../framework/elements/baseElement');
 const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
-const { transformSelectors } = require('../../../framework/helpers/transformers');
 const { isPresent } = require('../../../framework/elements/baseElement');
 const { getAttributes } = require('../../customElements/listGroupTable');
 
 /**
  * Page object class for working with comparing list page
  */
-class CompareListPage {
+class CompareListPage extends BasePage {
   /**
    * represents comparing list page
    * @constructor
    */
   constructor() {
-    this.selectors = transformSelectors(selectors);
+    super(selectors);
   }
 
   /**

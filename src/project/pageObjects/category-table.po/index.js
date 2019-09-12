@@ -1,20 +1,20 @@
+const { BasePage } = require('../../../framework/base-page');
 const { selectors } = require('./constants');
 const { getNumberForOption } = require('./constants');
 const { getNumbersForTable } = require('./constants');
 const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
-const { transformSelectors } = require('../../../framework/helpers/transformers');
 
 /**
  * Page object class for working with categories table page
  */
-class CategoryTablePage {
+class CategoryTablePage extends BasePage {
   /**
    * represents a categories table page
    * @constructor
    */
   constructor() {
-    this.selectors = transformSelectors(selectors);
+    super(selectors);
   }
 
   /**
