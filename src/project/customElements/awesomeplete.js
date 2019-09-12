@@ -1,6 +1,6 @@
 const log = require('../../framework/logger');
 const textBox = require('../../framework/elements/textBox');
-const { sendIvent, waitAndAssertState } = require('../../framework/elements/baseElement');
+const { sendEvent, waitAndAssertState } = require('../../framework/elements/baseElement');
 const { transformSelectors } = require('../../framework/helpers/transformers');
 const Browser = require('../../framework/browser');
 const ElementState = require('../../framework/elements/elementState');
@@ -41,7 +41,7 @@ const getItemSelector = (listAreaId, index) => transformSelectors({
 const tryClickItem = async (listAreaId, index, nameBack) => {
   const element = await waitAndAssertState(getItemSelector(listAreaId, index), ElementState.EXISTS);
   if (!await element.isDisplayed()) {
-    await sendIvent(getAutocompleteSelector(listAreaId).selector, 'input');
+    await sendEvent(getAutocompleteSelector(listAreaId).selector, 'input');
   }
   const itemText = await element.getText();
   if (itemText !== '') {

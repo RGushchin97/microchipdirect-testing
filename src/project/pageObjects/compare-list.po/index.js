@@ -1,4 +1,7 @@
 const selectors = require('./constants');
+const { STATE_CHECKED } = require('../../../framework/elements/checkBox');
+const { isEnabled } = require('../../../framework/elements/baseElement');
+const { setCheckboxState } = require('../../../framework/elements/checkBox');
 const { getElementsCount } = require('../../../framework/elements/baseElement');
 const { getText } = require('../../../framework/elements/baseElement');
 const { click } = require('../../../framework/elements/baseElement');
@@ -28,7 +31,7 @@ class CompareListPage {
   async selectItem(number, cost) {
     const itemSelector = fromPattern(this.selectors.Item, cost, number);
     const checkboxSelector = fromPattern(this.selectors['Item Checkbox'], itemSelector.selector);
-    await click(fromPattern(checkboxSelector));
+    await setCheckboxState(checkboxSelector, STATE_CHECKED);
     await this.setSelectedItemName(itemSelector);
   }
 
@@ -86,7 +89,7 @@ class CompareListPage {
    */
   isButtonAvailable(buttonName) {
     const buttonCompareSelector = this.selectors[buttonName];
-    return isPresent(buttonCompareSelector);
+    return isEnabled(buttonCompareSelector);
   }
 
   /**

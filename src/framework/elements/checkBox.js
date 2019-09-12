@@ -28,7 +28,12 @@ async function getCheckboxState(selector) {
   return element.isSelected();
 }
 
+const STATE_CHECKED = 'checked';
+const STATE_UNCHECKED = 'unchecked';
+
 module.exports = {
   setCheckboxState,
   getCheckboxState,
+  STATE_CHECKED,
+  STATE_UNCHECKED,
 };

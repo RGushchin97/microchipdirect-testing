@@ -220,7 +220,7 @@ async function hover(selector) {
  * @param {string} eventName event name
  * @returns {Promise<void>} result of clicking
  */
-async function sendIvent(cssSelector, eventName) {
+async function sendEvent(cssSelector, eventName) {
   log(`Send ${eventName} "${cssSelector}"`);
   try {
     const strJavaScript = `
@@ -316,6 +316,22 @@ async function isPresent(selector) {
 }
 
 /**
+ * Get element enabled state
+ * @param {Object} selector element selector
+ * @returns {Promise<boolean>} enabled state
+ */
+async function isEnabled(selector) {
+  log(`Getting Enabled state of "${selector.name}"`);
+  try {
+    await Browser.waitForPageToLoad();
+    return await Browser.driver.findElement(selector.locator)
+      .isEnabled();
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
  * Get attribute of element
  * @param {Object} selector element selector
  * @param {string} attribute attribute name
@@ -399,7 +415,7 @@ async function getElementsCount(selector) {
 module.exports = {
   click,
   tryClick,
-  sendIvent,
+  sendEvent,
   hover,
   waitForText,
   jsClick,
@@ -413,4 +429,5 @@ module.exports = {
   getElementsCount,
   getTitle,
   waitForState,
+  isEnabled,
 };
