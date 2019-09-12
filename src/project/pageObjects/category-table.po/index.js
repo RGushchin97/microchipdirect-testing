@@ -1,43 +1,34 @@
-const selectors = require('./constants');
+const { selectors } = require('./constants');
+const { getNumberForOption } = require('./constants');
+const { getNumbersForTable } = require('./constants');
 const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
 const { transformSelectors } = require('../../../framework/helpers/transformers');
 
+/**
+ * Page object class for working with categories table page
+ */
 class CategoryTablePage {
+  /**
+   * represents a categories table page
+   * @constructor
+   */
   constructor() {
-    this.formattedSelectors = transformSelectors(selectors);
+    this.selectors = transformSelectors(selectors);
   }
 
+  /**
+   * selects option from categories table
+   * @param {string} option option for select
+   * @param {string} table table where option is located
+   * @returns {Promise<void>} result clicking on option
+   */
   async selectOption(option, table) {
-    const tableNumbers = this.getNumbersForTable(table);
+    const tableNumbers = getNumbersForTable(table);
     const [column, number] = tableNumbers;
-    const tableSelector = fromPattern(this.formattedSelectors['Table'], column, number);
-    const optionSelector = fromPattern(this.formattedSelectors['Option'], tableSelector.selector, this.getNumberForOption(option));
+    const tableSelector = fromPattern(this.selectors.Table, column, number);
+    const optionSelector = fromPattern(this.selectors.Option, tableSelector.selector, getNumberForOption(option));
     await click(optionSelector);
-  }
-
-  getNumbersForTable(table) {
-    let numbers;
-    switch (table) {
-    case 'High Voltage Interface':
-      numbers = [2, 3];
-      break;
-    default:
-      throw new Error(`Table ${table} is not specified.`);
-    }
-    return numbers;
-  }
-
-  getNumberForOption(option) {
-    let number;
-    switch (option) {
-    case 'Depletion - Mode N-Channel':
-      number = 1;
-      break;
-    default:
-      throw new Error(`Option ${option} is not specified.`);
-    }
-    return number;
   }
 }
 

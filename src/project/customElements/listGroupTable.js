@@ -24,6 +24,12 @@ const hasRows = async (selector) => {
   return rowsCount > 0;
 };
 
+/**
+ * get array of same attributes from multiple elements
+ * @param {object} selector selector of elements
+ * @param {string} attribute HTML attribute, default value = 'innerText'
+ * @returns {Promise<object[]>} result
+ */
 const getAttributes = async (selector, attribute = 'innerText') => {
   const elements = await Browser.driver.findElements(selector.locator);
   const promises = elements.map(async (el) => el.getAttribute(attribute));

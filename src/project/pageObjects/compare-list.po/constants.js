@@ -1,5 +1,5 @@
 module.exports = {
-  'Item': {
+  Item: {
     selector: '(//table[contains(@class, "striped")]//tr[contains(., "%1$s")])[%2$s]',
     type: 'xpath',
   },
@@ -11,7 +11,7 @@ module.exports = {
     selector: '%1$s/td[contains(@id, "FamilyName")]/a[@class="Controls"]',
     type: 'xpath',
   },
-  'Compare': {
+  Compare: {
     selector: '//a[contains(@id, "Compare1")]',
     type: 'xpath',
   },
