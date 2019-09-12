@@ -4,6 +4,7 @@ const { sendEvent, waitAndAssertState } = require('../../framework/elements/base
 const { transformSelectors } = require('../../framework/helpers/transformers');
 const Browser = require('../../framework/browser');
 const ElementState = require('../../framework/elements/elementState');
+const { TextBox } = require('../../framework/elements');
 
 /**
  * get autocomplete selector
@@ -81,7 +82,8 @@ const selectItem = async (listAreaId, index, nameBack) => {
  */
 const selectAwesompleteItem = async (listAreaId, text, index, nameBack) => {
   log(`Selecting "${index}" item in autocomplete from Autocomplete after input "${text}" text `);
-  await textBox.setText(getAutocompleteSelector(listAreaId), text);
+  const txbAwesomplete = new TextBox(getAutocompleteSelector(listAreaId).locator, 'Text box Awesomplete');
+  await txbAwesomplete.setText(text);
   await selectItem(listAreaId, index, nameBack);
 };
 
