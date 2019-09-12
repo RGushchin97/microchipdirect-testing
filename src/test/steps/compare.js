@@ -37,7 +37,8 @@ Then(/^Only '(.*)' items are in table$/, async (count) => {
 Then(/^Item '(.*)' is in table$/, async (key) => {
   const compareListPage = new CompareListPage();
   const itemName = this[key];
-  await compareListPage.waitForTableItemIsDisplayed(itemName);
+  const itemIsDisplayed = await compareListPage.isItemDisplayed(itemName);
+  assert.isTrue(itemIsDisplayed, `Item '${key}' is not displayed`);
 });
 
 When(/^I click button '(.*)'$/, async (buttonName) => {
@@ -53,7 +54,8 @@ Then(/^List of items names '(.*)' is shown$/, async (key) => {
 
 Then(/^Button '(.*)' is available$/, async (buttonName) => {
   const compareListPage = new CompareListPage();
-  await compareListPage.waitForButtonIsAvailable(buttonName);
+  const isButtonAvailable = await compareListPage.isButtonAvailable(buttonName);
+  assert.isTrue(isButtonAvailable, `Button '${buttonName}' is not available`);
 });
 
 When(/^I remember items names list as '(.*)'$/, async (key) => {

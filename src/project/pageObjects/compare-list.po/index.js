@@ -1,11 +1,10 @@
 const selectors = require('./constants');
-const { waitAndAssertState } = require('../../../framework/elements/baseElement');
 const { getElementsCount } = require('../../../framework/elements/baseElement');
 const { getText } = require('../../../framework/elements/baseElement');
 const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
 const { transformSelectors } = require('../../../framework/helpers/transformers');
-const ElementState = require('../../../framework/elements/elementState');
+const { isPresent } = require('../../../framework/elements/baseElement');
 const { getAttributes } = require('../../customElements/listGroupTable');
 
 /**
@@ -67,9 +66,9 @@ class CompareListPage {
    * @param {string} itemName item's name
    * @returns {Promise<void>} result
    */
-  async waitForTableItemIsDisplayed(itemName) {
+  isItemDisplayed(itemName) {
     const itemSelector = fromPattern(this.selectors['Comparison Item'], this.selectors['Comparison Row'].selector, itemName);
-    await waitAndAssertState(itemSelector, ElementState.PRESENT);
+    return isPresent(itemSelector);
   }
 
   /**
@@ -85,9 +84,9 @@ class CompareListPage {
    * @param {string} buttonName button's name (text)
    * @returns {Promise<void>} result
    */
-  async waitForButtonIsAvailable(buttonName) {
+  isButtonAvailable(buttonName) {
     const buttonCompareSelector = this.selectors[buttonName];
-    await waitAndAssertState(buttonCompareSelector, ElementState.ENABLED);
+    return isPresent(buttonCompareSelector);
   }
 
   /**
