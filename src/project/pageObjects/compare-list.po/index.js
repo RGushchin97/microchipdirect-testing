@@ -1,12 +1,10 @@
 const selectors = require('./constants');
+const { BaseElement } = require('../../../framework/elements');
+const { ComparisonItem } = require('../../customElements/comparison-item');
 const { transformSelectors } = require('../../../framework/helpers/transformers');
 const { BasePage } = require('../../../framework/base-page');
-const { STATE_CHECKED } = require('../../../framework/elements/checkBox');
 const { isEnabled } = require('../../../framework/elements/baseElement');
-const { setCheckboxState } = require('../../../framework/elements/checkBox');
-const { getElementsCount } = require('../../../framework/elements/baseElement');
 const { getText } = require('../../../framework/elements/baseElement');
-const { click } = require('../../../framework/elements/baseElement');
 const { fromPattern } = require('../../../framework/helpers/transformers');
 const { isPresent } = require('../../../framework/elements/baseElement');
 const { getAttributes } = require('../../customElements/listGroupTable');
@@ -26,14 +24,13 @@ class CompareListPage extends BasePage {
   /**
    * select/unselect item via clicking it's checkbox
    * @param {number} number index number of element with specified cost
-   * @param {number} cost cost of item
+   * @param {string} cost cost of item
    * @returns {Promise<void>} result click checkbox
    */
   async selectItem(number, cost) {
-    const itemSelector = fromPattern(this.selectors.Item, cost, number);
-    const checkboxSelector = fromPattern(this.selectors['Item Checkbox'], itemSelector.selector);
-    await setCheckboxState(checkboxSelector, STATE_CHECKED);
-    await this.setSelectedItemName(itemSelector);
+    const comparisonItem = new ComparisonItem(cost, number);
+    await comparisonItem.select();
+    this.selectedItemName = await comparisonItem.getName();
   }
 
   /**
@@ -42,8 +39,8 @@ class CompareListPage extends BasePage {
    * @returns {Promise<void>} result click button
    */
   async clickButton(buttonName) {
-    const buttonSelector = this.selectors[buttonName];
-    await click(buttonSelector);
+    const button = this.elements[buttonName];
+    await button.click();
   }
 
   /**
@@ -51,18 +48,7 @@ class CompareListPage extends BasePage {
    * @returns {Promise<int|*>} result
    */
   async getComparisonsCount() {
-    const comparisonItemSelector = this.selectors['Comparison Row'];
-    return getElementsCount(comparisonItemSelector);
-  }
-
-  /**
-   * remember item name after it's selection
-   * @param {object} itemSelector selector to selected item
-   * @returns {Promise<void>} result get text from item and remember
-   */
-  async setSelectedItemName(itemSelector) {
-    const nameSelector = fromPattern(this.selectors['Item Name'], itemSelector.selector);
-    this.selectedItemName = await getText(nameSelector);
+    return BaseElement.getElementsCount(this.elements.comparisonRowLocator);
   }
 
   /**
@@ -89,8 +75,8 @@ class CompareListPage extends BasePage {
    * @returns {Promise<void>} result
    */
   isButtonAvailable(buttonName) {
-    const buttonCompareSelector = this.selectors[buttonName];
-    return isEnabled(buttonCompareSelector);
+    const button = this.elements[buttonName];
+    return button.isEnabled();
   }
 
   /**
@@ -98,8 +84,7 @@ class CompareListPage extends BasePage {
    * @returns {Promise<Object[]|*>} result
    */
   async getNamesList() {
-    const selector = fromPattern(transformSelectors(selectors)['Item Name'], '/');
-    return getAttributes(selector);
+    return getAttributes(this.elements.itemNameLocator);
   }
 }
 

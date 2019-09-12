@@ -1,28 +1,11 @@
+const { By } = require('selenium-webdriver');
+const { Button } = require('../../../framework/elements/button');
+
 module.exports = {
-  Item: {
-    selector: '(//tr[contains(., "%1$s")])[%2$s]',
-    type: 'xpath',
-  },
-  'Item Checkbox': {
-    selector: '%1$s/td/input',
-    type: 'xpath',
-  },
-  'Item Name': {
-    selector: '%1$s/td[contains(@id, "FamilyName")]/a[@class="Controls"]',
-    type: 'xpath',
-  },
-  Compare: {
-    selector: '//a[contains(@id, "Compare1")]',
-    type: 'xpath',
-  },
-  'Show Full List': {
-    selector: '//a[contains(@id, "Compare1")]',
-    type: 'xpath',
-  },
-  'Comparison Row': {
-    selector: '//tr[contains(@id, "ComparisonChartNew1_r")]',
-    type: 'xpath',
-  },
+  itemNameLocator: By.xpath('//a[@class="Controls"]'),
+  comparisonRowLocator: By.xpath('//tr[contains(@id, "ComparisonChartNew1_r")]'),
+  Compare: new Button(By.xpath('//a[contains(@id, "Compare1")]'), 'Button Compare'),
+  'Show Full List': new Button(By.xpath('//a[contains(@id, "Compare1")]'), 'Button Show Full List'),
   'Comparison Item': {
     selector: '%1$s/td/a[text() = "%2$s"]',
     type: 'xpath',

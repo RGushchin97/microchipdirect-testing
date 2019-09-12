@@ -417,7 +417,7 @@ class BaseElement {
    * @returns {int} number of elements found by specified selector
    */
   static async getElementsCount(selector) {
-    const elements = await Browser.driver.findElements(selector.locator);
+    const elements = await Browser.driver.findElements(selector);
     return elements.length;
   }
 }

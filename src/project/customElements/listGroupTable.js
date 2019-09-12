@@ -31,7 +31,7 @@ const hasRows = async (selector) => {
  * @returns {Promise<object[]>} result
  */
 const getAttributes = async (selector, attribute = 'innerText') => {
-  const elements = await Browser.driver.findElements(selector.locator);
+  const elements = await Browser.driver.findElements(selector);
   const promises = elements.map(async (el) => el.getAttribute(attribute));
   return Promise.all(promises).then((result) => result);
 };
