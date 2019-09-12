@@ -2,7 +2,6 @@ Feature: Compare
 
   @ui
   Scenario: Comparing shows results
-#    When I select 'Ultrasound Products' from 'Analog' card footer
     When I select 'Analog' card
       And I select 'Depletion - Mode N-Channel' from 'High Voltage Interface' table card
       And I remember items names list as 'full list'
@@ -15,4 +14,3 @@ Feature: Compare
     When I click button 'Show Full List'
       Then List of items names 'full list' is shown
       And Button 'Compare' is available
-
