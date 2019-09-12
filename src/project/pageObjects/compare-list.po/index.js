@@ -20,14 +20,9 @@ class CompareListPage {
     await this.setSelectedItemName(itemSelector);
   }
 
-  async clickCompare() {
-    const buttonCompareSelector = this.selectors['Button Compare'];
-    await click(buttonCompareSelector);
-  }
-
-  async clickShowFullList() {
-    const buttonShowFullList = this.selectors['Button Show Full List'];
-    await click(buttonShowFullList);
+  async clickButton(buttonName) {
+    const buttonSelector = this.selectors[buttonName];
+    await click(buttonSelector);
   }
 
   async getComparisonsCount() {
@@ -49,8 +44,8 @@ class CompareListPage {
     return this.selectedItemName;
   }
 
-  async waitForButtonCompareIsAvailable() {
-    const buttonCompareSelector = this.selectors['Button Compare'];
+  async waitForButtonIsAvailable(buttonName) {
+    const buttonCompareSelector = this.selectors[buttonName];
     await waitAndAssertState(buttonCompareSelector, ElementState.ENABLED);
   }
 

@@ -1,12 +1,10 @@
 const { assert } = require('chai');
 const { When } = require('cucumber');
 const { Then } = require('cucumber');
-const { By } = require('selenium-webdriver');
 const { HomePage } = require('../../project/pageObjects/home.po');
 const log = require('../../framework/logger');
 const { CompareListPage } = require('../../project/pageObjects/compare-list.po');
 const { CategoryTablePage } = require('../../project/pageObjects/category-table.po');
-const browser = require('../../framework/browser');
 
 When(/^I select '(.*)' from '(.*)' card footer$/, async (category, card) => {
   const homePage = new HomePage();
@@ -30,34 +28,34 @@ When(/^I select '(.*)' item with cost '(.*)' from results table remembering item
   log(`${number} item's name with cost ${cost} (name = '${this[key]}') is remembered as '${key}'.`);
 });
 
-When(/^I click button Compare$/, async () => {
-  const compareListPage = new CompareListPage();
-  await compareListPage.clickCompare();
-});
-
 Then(/^Only '(.*)' items are in table$/, async (count) => {
   const compareListPage = new CompareListPage();
   const comparisonsCount = await compareListPage.getComparisonsCount();
   assert.equal(count, comparisonsCount, `Comparisons table does not contain ${count} items`);
 });
+
 Then(/^Item '(.*)' is in table$/, async (key) => {
   const compareListPage = new CompareListPage();
   const itemName = this[key];
   await compareListPage.waitForTableItemIsDisplayed(itemName);
 });
-When(/^I click button Show Full List$/, async () => {
+
+When(/^I click button '(.*)'$/, async (buttonName) => {
   const compareListPage = new CompareListPage();
-  await compareListPage.clickShowFullList();
+  await compareListPage.clickButton(buttonName);
 });
+
 Then(/^List of items names '(.*)' is shown$/, async (key) => {
   const compareListPage = new CompareListPage();
   const actualList = await compareListPage.getNamesList();
   assert.deepEqual(actualList, this[key], `List of items names ${key} is not shown`);
 });
-Then(/^Button Compare is available$/, async () => {
+
+Then(/^Button '(.*)' is available$/, async (buttonName) => {
   const compareListPage = new CompareListPage();
-  await compareListPage.waitForButtonCompareIsAvailable();
+  await compareListPage.waitForButtonIsAvailable(buttonName);
 });
+
 When(/^I remember items names list as '(.*)'$/, async (key) => {
   const compareListPage = new CompareListPage();
   this[key] = await compareListPage.getNamesList();

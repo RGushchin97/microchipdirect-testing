@@ -11,11 +11,11 @@ module.exports = {
     selector: '%1$s/td[contains(@id, "FamilyName")]/a[@class="Controls"]',
     type: 'xpath',
   },
-  'Button Compare': {
+  'Compare': {
     selector: '//a[contains(@id, "Compare1")]',
     type: 'xpath',
   },
-  'Button Show Full List': {
+  'Show Full List': {
     selector: '//a[contains(@id, "Compare1")]',
     type: 'xpath',
   },
