@@ -9,6 +9,9 @@ class BasePage {
    * @param {object} selectors selectors to transform
    */
   constructor(selectors) {
+    if (new.target === BasePage) {
+      throw new TypeError('Cannot construct BasePage class directly');
+    }
     this.selectors = transformSelectors(selectors);
   }
 }
