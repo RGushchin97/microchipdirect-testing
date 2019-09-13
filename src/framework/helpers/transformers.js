@@ -29,6 +29,19 @@ function fromPattern(selector, ...params) {
 }
 
 /**
+ * Insert values into locator template
+ * @param {object} template element locator
+ * @param {*} params object values for insert
+ * @returns {object} updated locator
+ */
+function fromTemplate(template, ...params) {
+  const selector = {};
+  selector.using = template.using;
+  selector.value = sprintf(template.value, ...params);
+  return selector;
+}
+
+/**
    * Convert yes/no to true/false
    * @param {string} str what to convert
    * @return {boolean} converted
@@ -57,4 +70,5 @@ module.exports = {
   fromPattern,
   yesNoToBool,
   convertCardExpiration,
+  fromTemplate,
 };

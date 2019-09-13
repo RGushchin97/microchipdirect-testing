@@ -1,18 +1,19 @@
-const { getElementsCount, isPresent } = require('../../framework/elements/baseElement');
+const { BaseElement } = require('../../framework/elements/baseElement');
 const Browser = require('../../framework/browser');
+const { Label } = require('../../framework/elements/label');
 /**
  * get rows count
  * @param {object} selector selector of table rows
- * @returns {Promise<number>} count
+ * @returns {int} count count of elements
  */
-const getRowsCount = (selector) => getElementsCount(selector);
+const getRowsCount = (selector) => BaseElement.getElementsCount(selector);
 
 /**
  * is table has column
  * @param {object} selector selector of table column
  * @returns {Promise<boolean>} result
  */
-const hasColumn = (selector) => isPresent(selector);
+const hasColumn = (selector) => new Label(selector, 'Column').isPresent();
 
 /**
  * is table has rows

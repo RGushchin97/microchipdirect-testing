@@ -1,4 +1,4 @@
-const awesomplete = require('./awesomeplete');
+const awesomplete = require('./awesomplete');
 const menuDropDown = require('./menuDropDown');
 
 module.exports = {
