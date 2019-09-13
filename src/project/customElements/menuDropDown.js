@@ -1,7 +1,6 @@
 const { transformSelectors } = require('../../framework/helpers/transformers');
 const log = require('../../framework/logger');
 const { Button } = require('../../framework/elements');
-const { click, hover, scrollToElement } = require('../../framework/elements/baseElement');
 
 /**
  * get item index

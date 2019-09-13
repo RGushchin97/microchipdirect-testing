@@ -24,7 +24,7 @@ Then(/^Step (.*) table has data$/, async (step) => {
   assert.isTrue(hasRowsValue, `Step ${step} should has data in table.`);
 });
 
-Then(/^Step (.*) has enabled Upload button$/, async (step) => {
+Then(/^Step 3 has enabled Upload button$/, async () => {
   const isPresentValue = await new ProgrammingCostItemPage().isUploadButtonPresent();
   assert.isTrue(isPresentValue, 'Upload Button should be shown');
   const isEnabledValue = await new ProgrammingCostItemPage().isUploadButtonEnabled();
