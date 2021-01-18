@@ -1,29 +1,63 @@
 const selectors = require('./constants');
-const { getText, isPresent, waitAndAssertState } = require('../../../framework/elements');
-const ElementState = require('../../../framework/elements');
+const { fromTemplate } = require('../../../framework/helpers/transformers');
+const { Label } = require('../../../framework/elements/label');
+const { BasePage } = require('../../../framework/base-page');
 const { hasRows } = require('../../customElements/listGroupTable');
-const { transformSelectors, fromPattern } = require('../../../framework/helpers/transformers');
 
-class ProgrammingCostItemPage {
+/**
+ * Page object class for working with programming cost item page
+ */
+class ProgrammingCostItemPage extends BasePage {
+  /**
+   * represents programming cost item page
+   * @constructor
+   */
+  constructor() {
+    super(selectors);
+  }
+
+  /**
+   * get item pricing name
+   * @returns {Promise<*>} result name
+   */
   async getItemPricingName() {
-    return await getText(transformSelectors(selectors)['Showing Pricing For Part Number']);
+    return this.elements.lblPricingItemName.getText();
   }
 
+  /**
+   * get item pricing label text
+   * @param {number} step step
+   * @returns {Promise<*>} result text
+   */
   async getItemPricingLabelText(step) {
-    return await getText(fromPattern(selectors['Step Card Title'], step));
+    return new Label(fromTemplate(this.elements.stepCardTitleLocatorTemplate, step), `Step ${step} Pricing Label`).getText();
   }
 
+  /**
+   * is item has rows value
+   * @param {number} step step
+   * @returns {Promise<boolean|*>} result is has rows
+   */
   async isItemHasRowsValue(step) {
-    const cardSelector = fromPattern(selectors['Step Card'], step);
-    return await hasRows(fromPattern(selectors['List Group Table Rows'], cardSelector.selector));
+    const cardSelector = fromTemplate(this.elements.stepCardLocatorTemplate, step);
+    const rowsSelector = fromTemplate(this.elements.listGroupTableRowsLocatorTemplate, cardSelector.value);
+    return hasRows(rowsSelector);
   }
 
-  async isUploadButtonPresent(step) {
-    return isPresent(fromPattern(selectors['Step Card Upload Button'], step));
+  /**
+   * is upload button present
+   * @returns {Promise<*>} result is present
+   */
+  isUploadButtonPresent() {
+    return this.elements.btnUpload.isPresent();
   }
 
-  async waitForUploadButtonEnabled(step) {
-    await waitAndAssertState(fromPattern(selectors['Step Card Upload Button'], step), ElementState.ENABLED);
+  /**
+   * wait for 'enabled' state of upload button
+   * @returns {Promise<void>} result wait
+   */
+  isUploadButtonEnabled() {
+    return this.elements.btnUpload.isEnabled();
   }
 }
 

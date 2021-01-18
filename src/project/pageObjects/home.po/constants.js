@@ -1,6 +1,6 @@
+const { By } = require('selenium-webdriver');
+const { Label } = require('../../../framework/elements/label');
+
 module.exports = {
-  'E-mail and Phone Support': {
-    selector: '//a[@href="/SupportEmail.aspx"]',
-    type: 'xpath',
-  },
+  Analog: new Label(By.css('#product-cards > div > div:nth-child(2)'), 'Analog'),
 };

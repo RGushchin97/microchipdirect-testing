@@ -1,6 +1,6 @@
 const { transformSelectors } = require('../../framework/helpers/transformers');
 const log = require('../../framework/logger');
-const { click, hover, scrollToElement } = require('../../framework/elements/baseElement');
+const { Button } = require('../../framework/elements');
 
 /**
  * get item index
@@ -48,14 +48,16 @@ const selectMenuItem = async (menuName, itemName) => {
       type: 'xpath',
     },
   };
-  await scrollToElement(transformSelectors(menuButton)['Top Menu Button']);
-  await hover(transformSelectors(menuButton)['Top Menu Button']);
-  await click(transformSelectors({
+  const lblMenu = new Button(transformSelectors(menuButton)['Top Menu Button'].locator, `Menu Label ${menuName}`);
+  await lblMenu.scrollToElement();
+  await lblMenu.hover();
+  const btnMenu = new Button(transformSelectors({
     'Menu Button item': {
       selector: `${menuButton['Top Menu Button'].selector}//a[@href="${getItemHref(itemName)}"]`,
       type: 'xpath',
     },
-  })['Menu Button item']);
+  })['Menu Button item'].locator, `Menu Button ${itemName}`);
+  await btnMenu.click();
 };
 
 module.exports = {

@@ -1,5 +1,6 @@
 const selectors = require('./constants');
-const { selectAwesompleteItem } = require('../../customElements/awesomeplete');
+const { Awesomplete } = require('../../customElements/awesomplete');
+
 /**
  * Page for searching cost of programming
  */
@@ -10,7 +11,9 @@ class ProgrammingCostSearchPage {
    * @param {number} item Number item that will be selected
    */
   async searchItem(searchText, item) {
-    await selectAwesompleteItem(selectors['List id'], searchText, item, (name) => { this.itemName = name; });
+    const awesomplete = new Awesomplete(selectors['List id']);
+    await awesomplete.searchAndSelectItem(searchText, item);
+    this.itemName = awesomplete.getSelectedItemName();
   }
 
   /**

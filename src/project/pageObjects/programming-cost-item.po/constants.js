@@ -1,28 +1,13 @@
+const { By } = require('selenium-webdriver');
+const { Button } = require('../../../framework/elements/button');
+const { Label } = require('../../../framework/elements/label');
+
 const selectors = {
-  'Showing Pricing For Part Number': {
-    selector: '.card > .card-body span > strong',
-    type: 'css',
-  },
-  'Step Card Title': {
-    selector: '.card-deck .card:nth-child(%1$s) .card-title',
-    type: 'css',
-  },
-  'Step Card': {
-    selector: '//*[contains(@class,"card-deck")]//*[contains(@class,"card")][%1$s]',
-    type: 'xpath',
-  },
-  'List Group Table Rows': {
-    selector: '%1$s//ul/li',
-    type: 'xpath',
-  },
-  'List Group Table Column': {
-    selector: '%1$s//*[contains(@class,"row")]/*[contains(@class, "col") and text()="%2$s"]',
-    type: 'xpath',
-  },
-  'Step Card Upload Button': {
-    selector: '.card-deck .card:nth-child(3) .btn.btn-danger',
-    type: 'css',
-  },
+  lblPricingItemName: new Label(By.css('.card > .card-body span > strong'), 'Pricing Item Name'),
+  btnUpload: new Button(By.css('.card-deck .card:nth-child(3) .btn.btn-danger'), 'Button Upload'),
+  stepCardTitleLocatorTemplate: By.css('.card-deck .card:nth-child(%1$s) .card-title'),
+  stepCardLocatorTemplate: By.xpath('.//*[contains(@class,"card-deck")]//*[contains(@class,"card")][%1$s]'),
+  listGroupTableRowsLocatorTemplate: By.xpath('%1$s//ul/li'),
 };
 
 module.exports = {
